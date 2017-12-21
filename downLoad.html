@@ -48,13 +48,13 @@
     $("#download").click(function(){
         var ua = window.navigator.userAgent.toLowerCase();
         if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-
+            $("#downtip").show();
+        }else{
             $.post("http://cdtpwebgateway-xdgc-idesign-dev.opaas.enncloud.cn/CDTPWebGateway/softwareVersion/show/'+url", {},
                 function (e) {
 
                 });
-        }else{
-            $("#downtip").show();
+
         }
     });
 </script>
