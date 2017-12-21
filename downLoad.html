@@ -17,16 +17,24 @@
     <div class="imagelogo"><img  class="logo" src="downLoad/logo.png"></div>
     <div class="imagetext"><img class="text" src="downLoad/text.png"></div>
 </div>
-<div class="btn" id="download">
+<div  class="btn"><a  style="text-decoration: none" href="http://www.17yunyi.com/CDTPWebGateway/softwareVersion/downloadQr">
     <img class="btnimage" src="downLoad/downLoad.png">
     <span class="btntext">点击下载</span>
-</div>
+</a></div>
 <div class="banben"><span>版本：</span><span id="version"></span><span>/</span><span>大小：</span><span id="size"></span><span>MB/</span><span id="time"></span></div>
 </body>
 <script>
-    var url
+
+
     $(document).ready(function(){
-        $.post("http://cdtpwebgateway-xdgc-idesign-dev.opaas.enncloud.cn/CDTPWebGateway/softwareVersion/getByCondition", {
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            $("#downtip").show();
+        }else{
+
+        }
+
+        $.post("http://www.17yunyi.com/CDTPWebGateway/softwareVersion/getByCondition", {
             code:'APP-Android',name:'安卓APP安装包'
             },
             function (e) {
@@ -45,20 +53,6 @@
 
     });
 
-    $("#download").click(function(){
-        var ua = window.navigator.userAgent.toLowerCase();
-        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
-            $("#downtip").show();
-        }else{
-            alert(url);
-            $.get("http://cdtpwebgateway-xdgc-idesign-dev.opaas.enncloud.cn/CDTPWebGateway/softwareVersion/show/"+url, {},
-                function (e) {
-                    alert(111);
-                });
-
-        }
-    });
 </script>
 </html>
-
 
