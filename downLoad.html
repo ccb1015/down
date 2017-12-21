@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>设计平台</title>
+    <link href="styles/downLoad.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+</head>
+<body style="background-color: #FFFFFF;margin:0;padding:0">
+<div class="preloader" id="downtip">
+ <span id="text" class="texts">点击右上角的按钮，选择在浏览器中打开</span>
+ <img class="gotoClient" src="downLoad/goto.png"/>
+</div>
+<div class="container">
+    <div class="imagelogo"><img  class="logo" src="downLoad/logo.png"></div>
+    <div class="imagetext"><img class="text" src="downLoad/text.png"></div>
+</div>
+<div class="btn" id="download">
+    <img class="btnimage" src="downLoad/downLoad.png">
+    <span class="btntext">点击下载</span>
+</div>
+<div class="banben"><span>版本：</span><span id="version"></span><span>/</span><span>大小：</span><span id="size"></span><span>MB/</span><span id="time"></span></div>
+</body>
+<script>
+    var url
+    $(document).ready(function(){
+        $.post("http://cdtpwebgateway-xdgc-idesign-dev.opaas.enncloud.cn/CDTPWebGateway/softwareVersion/getByCondition", {
+            code:'APP-Android',name:'安卓APP安装包'
+            },
+            function (e) {
+               if(e.status==1){
+                   var version=e.data.version;
+                   var size=parseInt(e.data.filesize/1024/1024);
+                   var allitme=e.data.activeTime;
+                   var arr=allitme.split(" ");
+                   var time=arr[0];
+                   url=e.data.downloadUrl;
+                   $("#version").text(version);
+                   $("#size").text(size);
+                   $("#time").text(time);
+               }
+            });
+
+    });
+
+    $("#download").click(function(){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+
+            $.post("http://cdtpwebgateway-xdgc-idesign-dev.opaas.enncloud.cn/CDTPWebGateway/softwareVersion/show/'+url", {},
+                function (e) {
+
+                });
+        }else{
+            $("#downtip").show();
+        }
+    });
+</script>
+</html>
