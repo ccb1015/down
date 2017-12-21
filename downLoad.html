@@ -50,7 +50,7 @@
         if(ua.match(/MicroMessenger/i) == 'micromessenger'){
             $("#downtip").show();
         }else{
-            $.post("http://cdtpwebgateway-xdgc-idesign-dev.opaas.enncloud.cn/CDTPWebGateway/softwareVersion/show/'+url", {},
+           $.get("'http://cdtpwebgateway-xdgc-idesign-dev.opaas.enncloud.cn/CDTPWebGateway/softwareVersion/show/'+url", {},
                 function (e) {
 
                 });
